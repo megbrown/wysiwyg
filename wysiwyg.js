@@ -1,10 +1,6 @@
-
-// When there is a highlighted person element, and you begin typing in the input box,
-// the person's biography should be immediately bound to what you are typing, letter by letter.
 // When you press the enter/return key when typing in the input field,
 // then the content of the input field should immediately be blank.
 
-// Create an array of objects that represents famous people
 let USreps = [
 	{
 	  title: "U.S. House of Representatives",
@@ -55,7 +51,7 @@ for (counter = 0; counter < 3; counter++) {
 			</header>
 			<section>
 				<img src=${USreps[counter].image}>
-				<div id="bio">
+				<div class="bio">
 					<p>${USreps[counter].bio}</p>
 				</div>
 			</section>
@@ -70,13 +66,18 @@ for (i=0; i<personEl.length; i++) {
 	personEl[i].addEventListener("click", function(event) {
 		event.currentTarget.classList.toggle("dotted-border");
 		inputField.focus();
+		let currentEvent = event.currentTarget.querySelector(".bio");
 		inputField.addEventListener("keyup", function() {
-			document.getElementById("bio").innerHTML = inputField.value;
+			currentEvent.innerHTML = inputField.value;
 		})
 	})
 }
 
+inputField.addEventListener("keyup", function (currentEvent) {
+	if (event.key === "Enter") {
 
+	}
+})
 
 
 
