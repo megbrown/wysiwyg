@@ -1,0 +1,22 @@
+body {
+	width: 75%;
+	margin: 2em auto;
+}
+#input {
+	width: 99%;
+	font-size: 1.5em;
+}
+
+.person-container {
+	margin: 1em;
+}
+.person-container:nth-child(even) {
+	background-color: lightyellow;
+}
+.person-container:nth-child(odd) {
+	background-color: lightblue;
+}
+.dotted-border {
+	border: 3px dotted #000;
+}
+

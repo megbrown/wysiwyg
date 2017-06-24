@@ -1,17 +1,11 @@
-// Style your person elements however you like.
-// For every even numbered element, have a light yellow background.
-// For every odd numbered element, have a light blue background.
-// Each element's DOM structure should be as shown below.
-// When you click on one of the person elements, a dotted border should appear around it.
-// When you click on one of the person elements,
-// the text input should immediately gain focus so that you can start typing.
+
 // When there is a highlighted person element, and you begin typing in the input box,
 // the person's biography should be immediately bound to what you are typing, letter by letter.
 // When you press the enter/return key when typing in the input field,
 // then the content of the input field should immediately be blank.
 
 // Create an array of objects that represents famous people
-var USreps = [
+let USreps = [
 	{
 	  title: "U.S. House of Representatives",
 	  name: "Diane Black",
@@ -19,17 +13,17 @@ var USreps = [
 	  image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/RepBlack_OfficialPhoto.jpg/220px-RepBlack_OfficialPhoto.jpg",
 	  lifespan: {
 	    birth: 1951,
-	    death: "current"
+	    death: "Current"
 	  }
 	},
 	{
 	  title: "U.S. House of Representatives",
 	  name: "David Kustoff",
 	  bio: "David Frank Kustoff is an American politician and attorney from the state of Tennessee.",
-	  image: "https://www.google.com/imgres?imgurl=https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Kustoff_Official_Headshot.jpg/220px-Kustoff_Official_Headshot.jpg&imgrefurl=https://en.wikipedia.org/wiki/David_Kustoff&h=330&w=220&tbnid=ks4iSTQ4Ye_kUM:&tbnh=186&tbnw=124&usg=__C1fxboIxMM11UqcJWMS0_r99X9w=&vet=10ahUKEwiVrv-L9c_UAhUKTSYKHfHuCVAQ_B0ImQEwCg..i&docid=nX7abvyxUsvoaM&itg=1&sa=X&ved=0ahUKEwiVrv-L9c_UAhUKTSYKHfHuCVAQ_B0ImQEwCg&ei=gelKWdXpDIqamQHx3aeABQ",
+	  image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Kustoff_Official_Headshot.jpg/220px-Kustoff_Official_Headshot.jpg",
 	  lifespan: {
 	    birth: 1966,
-	    death: "current"
+	    death: "Current"
 	  }
 	},
 	{
@@ -39,12 +33,64 @@ var USreps = [
 	  image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Scott_DesJarlais%2C_Official_Portrait%2C_112th_Congress.jpg/220px-Scott_DesJarlais%2C_Official_Portrait%2C_112th_Congress.jpg",
 	  lifespan: {
 	    birth: 1964,
-	    death: "current"
+	    death: "Current"
 	  }
 	}
 ]
 
-console.log(USreps);
+let counter = 0;
+
+let container = document.getElementById("container");
+
+for (counter = 0; counter < 3; counter++) {
+	container.innerHTML +=
+	`<div class="person-container" id="person${counter + 1}">
+			<header class="header">
+				<div class="name">
+					<h1>${USreps[counter].name}</h1>
+				</div>
+				<div class="title">
+					<h3>${USreps[counter].title}</h3>
+				</div>
+			</header>
+			<section>
+				<img src=${USreps[counter].image}>
+				<div id="bio">
+					<p>${USreps[counter].bio}</p>
+				</div>
+			</section>
+			<footer class="lifespan">${USreps[counter].lifespan.birth} - ${USreps[counter].lifespan.death}</footer>
+			</div>`;
+}
+
+let personEl = document.getElementsByClassName("person-container");
+let inputField = document.getElementById("input");
+
+for (i=0; i<personEl.length; i++) {
+	personEl[i].addEventListener("click", function(event) {
+		event.currentTarget.classList.toggle("dotted-border");
+		inputField.focus();
+		inputField.addEventListener("keyup", function() {
+			document.getElementById("bio").innerHTML = inputField.value;
+		})
+	})
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
