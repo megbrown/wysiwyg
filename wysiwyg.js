@@ -1,5 +1,4 @@
-// When you press the enter/return key when typing in the input field,
-// then the content of the input field should immediately be blank.
+
 
 let USreps = [
 	{
@@ -62,37 +61,34 @@ for (counter = 0; counter < 3; counter++) {
 let personEl = document.getElementsByClassName("person-container");
 let inputField = document.getElementById("input");
 
-for (i=0; i<personEl.length; i++) {
-	personEl[i].addEventListener("click", function(event) {
-		event.currentTarget.classList.toggle("dotted-border");
-		inputField.focus();
-		let currentEvent = event.currentTarget.querySelector(".bio");
-		inputField.addEventListener("keyup", function() {
-			currentEvent.innerHTML = inputField.value;
-		})
+function clearSelection() {
+	event.currentTarget.classList.remove("dotted-border");
+	console.log("clear selection", event.currentTarget)
+}
+
+function selectPerson() {
+	clearSelection();
+	event.currentTarget.classList.add("dotted-border");
+	console.log("add selection", event.currentTarget)
+	replaceBio();
+}
+
+function replaceBio() {
+	inputField.focus();
+	let currentEvent = event.currentTarget.querySelector(".bio");
+	inputField.addEventListener("keyup", function() {
+		currentEvent.innerHTML = inputField.value;
 	})
 }
 
-inputField.addEventListener("keyup", function (currentEvent) {
-	if (event.key === "Enter") {
+for (i=0; i<personEl.length; i++) {
+	personEl[i].addEventListener("click", function(event) {
+		selectPerson();
+	})
+}
 
-	}
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// inputField.addEventListener("keyup", function() {
+// 	if (event.key === "Enter") {
+// 		inputField.value = "";
+// 	}
+// })
