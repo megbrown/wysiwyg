@@ -54,44 +54,32 @@ for (counter = 0 ; counter < 3; counter++) {
 			</div>`;
 }
 
-let personEl = document.getElementsByClassName("person-container");
+let personEl = document.querySelectorAll(".person-container");
 let inputField = document.getElementById("input");
-let borderEl = document.getElementsByClassName("person-container dotted-border")
-
-// function clearSelection() {
-// 	event.currentTarget.classList.remove("dotted-border");
-// 	console.log("clear selection", event.currentTarget)
-// }
-
-// function selectPerson() {
-// 	// clearSelection();
-
-// 	console.log("add selection", event.currentTarget)
-// }
 
 function keyPress() {
 	inputField.addEventListener("keyup", function() {
 		if (event.key === "Enter") {
 			inputField.value = "";
+		} else {
+			replaceBio();
 		}
-		replaceBio()
 	})
 }
 
 function replaceBio() {
-	for (i=0; i<personEl.length; i++) {
-		if(borderEl){
-			borderEl[0].querySelector("#bio").innerHTML  = inputField.value;
-		}
-	}
+	let borderEl = document.querySelector(".dotted-border");
+	borderEl.querySelector("#bio").innerHTML = inputField.value;
+
 }
 
 for (i=0; i<personEl.length; i++) {
 	personEl[i].addEventListener("click", function(event) {
-		event.currentTarget.classList.toggle("dotted-border");
-		inputField.focus();
-		if(borderEl) {
-			keyPress();
+		for (j=0; j<personEl.length; j++) {
+			personEl[j].classList.remove("dotted-border");
 		}
+		event.currentTarget.classList.add("dotted-border");
+		inputField.focus();
+			keyPress();
 	})
 }
