@@ -1,5 +1,3 @@
-
-
 let USreps = [
 	{
 	  title: "U.S. House of Representatives",
@@ -33,11 +31,9 @@ let USreps = [
 	}
 ]
 
-let counter = 0;
-
 let container = document.getElementById("container");
 
-for (counter = 0; counter < 3; counter++) {
+for (counter = 0 ; counter < 3; counter++) {
 	container.innerHTML +=
 	`<div class="person-container" id="person${counter + 1}">
 			<header class="header">
@@ -51,7 +47,7 @@ for (counter = 0; counter < 3; counter++) {
 			<section>
 				<img src=${USreps[counter].image}>
 				<div class="bio">
-					<p>${USreps[counter].bio}</p>
+					<p id="bio">${USreps[counter].bio}</p>
 				</div>
 			</section>
 			<footer class="lifespan">${USreps[counter].lifespan.birth} - ${USreps[counter].lifespan.death}</footer>
@@ -60,35 +56,42 @@ for (counter = 0; counter < 3; counter++) {
 
 let personEl = document.getElementsByClassName("person-container");
 let inputField = document.getElementById("input");
+let borderEl = document.getElementsByClassName("person-container dotted-border")
 
-function clearSelection() {
-	event.currentTarget.classList.remove("dotted-border");
-	console.log("clear selection", event.currentTarget)
-}
+// function clearSelection() {
+// 	event.currentTarget.classList.remove("dotted-border");
+// 	console.log("clear selection", event.currentTarget)
+// }
 
-function selectPerson() {
-	clearSelection();
-	event.currentTarget.classList.add("dotted-border");
-	console.log("add selection", event.currentTarget)
-	replaceBio();
+// function selectPerson() {
+// 	// clearSelection();
+
+// 	console.log("add selection", event.currentTarget)
+// }
+
+function keyPress() {
+	inputField.addEventListener("keyup", function() {
+		if (event.key === "Enter") {
+			inputField.value = "";
+		}
+		replaceBio()
+	})
 }
 
 function replaceBio() {
-	inputField.focus();
-	let currentEvent = event.currentTarget.querySelector(".bio");
-	inputField.addEventListener("keyup", function() {
-		currentEvent.innerHTML = inputField.value;
-	})
+	for (i=0; i<personEl.length; i++) {
+		if(borderEl){
+			borderEl[0].querySelector("#bio").innerHTML  = inputField.value;
+		}
+	}
 }
 
 for (i=0; i<personEl.length; i++) {
 	personEl[i].addEventListener("click", function(event) {
-		selectPerson();
+		event.currentTarget.classList.toggle("dotted-border");
+		inputField.focus();
+		if(borderEl) {
+			keyPress();
+		}
 	})
 }
-
-// inputField.addEventListener("keyup", function() {
-// 	if (event.key === "Enter") {
-// 		inputField.value = "";
-// 	}
-// })
